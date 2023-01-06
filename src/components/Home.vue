@@ -9,9 +9,9 @@
 
         <div class="flex mt-6 py-8 ">
             <div
-                class="md:w-2/3 mx-auto py-8 bg-gradient-to-br from-transparent to-pink-900 p-4 rounded-md backdrop-blur-xs items-center justify-between h-full sm:w-full">
+                class="md:w-2/3 mx-auto py-8 bg-gradient-to-br from-transparent to-pink-900 md:p-4 lg:p-4 sm:p-1 rounded-md backdrop-blur-xs items-center justify-between h-full sm:w-full">
                 <div class="flex">
-                    <div class="w-1/2">
+                    <div class="lg:w-1/2 sm:w-full">
                         <div class="mb-6 p-4">
                             <div class="w-full max-w-md p-4 sm:p-8 bg-transparent">
                                 <form @submit.prevent="generateMusic">
@@ -51,7 +51,7 @@
                                         class="text-xl font-bold leading-none text-gray-900 dark:text-white text-light text-center">
                                         Frequent Choices</h5>
                                 </div>
-                                <div class="grid grid-cols-4 gap-4">
+                                <div class="grid gap-4 lg:grid-cols-4 sm:grid-cols-2">
 
                                     <div>
                                         <button
@@ -60,7 +60,7 @@
                                                 class="shadow-lg bg-[conic-gradient(at_top_left,_var(--tw-gradient-stops))] from-indigo-900 via-red-500 to-amber-600 rounded-md m-2 p-4">
                                                 <div class="flex items-center space-x-4">
                                                     <h1
-                                                        class="text-lg font-lg text-gray-900 font-bold truncate dark:text-white">
+                                                        class="lg:text-lg font-lg text-gray-900 font-bold truncate sm:text-sm dark:text-white">
                                                         70s
                                                     </h1>
                                                 </div>
@@ -74,7 +74,7 @@
                                                 class="shadow-lg bg-[conic-gradient(at_top_left,_var(--tw-gradient-stops))] from-indigo-900 via-red-500 to-amber-600 rounded-md m-2 p-4">
                                                 <div class="flex items-center space-x-4">
                                                     <h1
-                                                        class="text-lg font-lg text-gray-900 font-bold truncate dark:text-white">
+                                                        class="lg:text-lg font-lg text-gray-900 font-bold sm:text-sm truncate dark:text-white">
                                                         80s
                                                     </h1>
                                                 </div>
@@ -88,7 +88,7 @@
                                                 class="shadow-lg bg-[conic-gradient(at_top_left,_var(--tw-gradient-stops))] from-indigo-900 via-red-500 to-amber-600 rounded-md m-2 p-4">
                                                 <div class="flex items-center space-x-4">
                                                     <h1
-                                                        class="text-lg font-lg text-gray-900 font-bold truncate dark:text-white">
+                                                        class="lg:text-lg font-lg text-gray-900 font-bold sm:text-sm truncate dark:text-white">
                                                         90s
                                                     </h1>
                                                 </div>
@@ -102,7 +102,7 @@
                                                 class="shadow-lg bg-[conic-gradient(at_top_left,_var(--tw-gradient-stops))] from-indigo-900 via-red-500 to-amber-600 rounded-md m-2 p-4">
                                                 <div class="flex items-center space-x-4">
                                                     <h1
-                                                        class="text-lg font-lg text-gray-900 font-bold truncate dark:text-white">
+                                                        class="lg:text-lg font-lg text-gray-900 sm:text-sm font-bold truncate dark:text-white">
                                                         00s
                                                     </h1>
                                                 </div>
@@ -115,7 +115,7 @@
 
                         </div>
                     </div>
-                    <div class="w-1/2">
+                    <div class="lg:w-1/2 sm:w-full">
                         <div
                             class="mt-6 backdrop-brightness-110 hover:backdrop-brightness-150 max-h-lg rounded-lg shadow-lg  bg-white">
                             <div class="w-full p-4 sm:p-8 bg-transparent">
@@ -151,7 +151,6 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
