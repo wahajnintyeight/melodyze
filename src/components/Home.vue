@@ -132,17 +132,17 @@
                                         <li class="shadow-xl bounced-items bg-[radial-gradient(ellipse_at_bottom_right,_var(--tw-gradient-stops))] from-pink-500 via-red-500 to-yellow-500 w-full rounded-xl m-2 p-4 animation-bounce transition duration-600 transform hover:scale-x-105 hover:scale-y-120"
                                             v-for="music in this.generatedMusicList" :key="music.title">
                                             <div class="flex items-center space-x-4">
-                                                <div class="flex-1 min-w-0">
-                                                    <p
-                                                        class="text-sm font-medium text-gray-900 truncate dark:text-white text-left">
-                                                        {{ music.title }}
-                                                    </p>
-                                                </div>
-                                                <a :href="music.url">
-                                                    <div
+                                                <a :href="music.url" target="_blank" rel="noopener noreferrer">
+                                                    <div class="flex-1 min-w-0">
+                                                        <p
+                                                            class="text-sm font-medium text-gray-900 truncate dark:text-white text-left">
+                                                            {{ music.title }}
+                                                        </p>
+                                                    </div>
+                                                    <!-- <div
                                                         class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
                                                         View
-                                                    </div>
+                                                    </div> -->
                                                 </a>
                                             </div>
                                         </li>
@@ -162,8 +162,6 @@
 <script>
 // import axios
 import axios from 'axios';
-axios.defaults.headers.common['Authorization'] = `Bearer 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`
-axios.defaults.headers.common['mode'] = 'no-cors'
 export default {
     name: 'HomePage',
     data() {
@@ -175,9 +173,12 @@ export default {
         }
     },
     props: {
+        apiKey: {
+            type: String
+        },
+
     }, methods: {
         generateLink(songName) {
-            console.log("I receive song name", songName)
             const encodedQuery = encodeURIComponent(songName);
             const youtubeUrl = `https://www.youtube.com/results?search_query=${encodedQuery}`;
             return youtubeUrl
@@ -189,7 +190,7 @@ export default {
         },
         async generateMusic() {
             if (this.text != '') {
-                console.log('i am being called');
+                axios.defaults.headers.common['Authorization'] = `Bearer ${process.env.VUE_APP_API_KEY}`;
                 this.isLoading = true
                 this.loading = true;
                 const data = {

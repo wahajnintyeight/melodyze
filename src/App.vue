@@ -49,8 +49,13 @@ export default {
   name: 'App',
   components: {
     HomePage
+  },
+  props: {
+    apiKey: process.env.VUE_APP_API_KEY
   }
+
 }
+
 </script>
 
 <style>
