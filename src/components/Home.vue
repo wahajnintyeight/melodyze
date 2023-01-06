@@ -22,9 +22,26 @@
                                     <input type="text" v-model="text"
                                         class="block text-sm p-2 w-full mt-2 font-medium text-green-900 input shadow-lg rounded-md"
                                         id="" placeholder="Type the music stuff here">
-                                    <div class="container">
-                                        <button type="submit"
-                                            class="btn rounded-lg text-left text-md text-black p-2 text-bold shadow-lg mt-3 text-bold w-full text-center  bg-white">Generate</button>
+                                    <div v-if="isLoading">
+
+                                        <button type="button" disabled hidden
+                                            class="inline-flex w-auto cursor-pointer select-none appearance-none items-center justify-center space-x-2 rounded rounded-lg text-left text-md text-black p-2 text-bold shadow-lg mt-3 text-bold w-full text-center  bg-white transition bg-white disabled:pointer-events-none">
+                                            <svg class="h-4 w-4 animate-spin" viewBox="3 3 18 18">
+                                                <path class="fill-pink-900"
+                                                    d="M12 5C8.13401 5 5 8.13401 5 12C5 15.866 8.13401 19 12 19C15.866 19 19 15.866 19 12C19 8.13401 15.866 5 12 5ZM3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12Z">
+                                                </path>
+                                                <path class="fill-white"
+                                                    d="M16.9497 7.05015C14.2161 4.31648 9.78392 4.31648 7.05025 7.05015C6.65973 7.44067 6.02656 7.44067 5.63604 7.05015C5.24551 6.65962 5.24551 6.02646 5.63604 5.63593C9.15076 2.12121 14.8492 2.12121 18.364 5.63593C18.7545 6.02646 18.7545 6.65962 18.364 7.05015C17.9734 7.44067 17.3403 7.44067 16.9497 7.05015Z">
+                                                </path>
+                                            </svg>
+                                            <span>Loading...</span>
+                                        </button>
+                                    </div>
+                                    <div v-else>
+                                        <div class="container">
+                                            <button type="submit"
+                                                class="btn rounded-lg text-left text-md text-black p-2 text-bold shadow-lg mt-3 text-bold w-full text-center  bg-white">Generate</button>
+                                        </div>
                                     </div>
                                 </form>
                             </div>
@@ -103,41 +120,30 @@
                             class="mt-6 backdrop-brightness-110 hover:backdrop-brightness-150 max-h-lg rounded-lg shadow-lg  bg-white">
                             <div class="w-full p-4 sm:p-8 bg-transparent">
                                 <div class="flex items-center justify-between mb-4">
-                                    <h5 class="text-xl font-bold leading-none text-black">Generated
-                                        Music
+                                    <h5 class="text-xl leading-none text-black">
+                                        <span class="font-light">
+                                            Generated
+                                        </span>
+                                        <span class="font-bold">Music</span>
                                     </h5>
                                 </div>
                                 <div class="flow-root">
                                     <ul role="list" class=" dark:divide-gray-700">
-                                        <li
-                                            class="shadow-xl bounced-items bg-[radial-gradient(ellipse_at_bottom_right,_var(--tw-gradient-stops))] from-pink-500 via-red-500 to-yellow-500 w-full rounded-xl m-2 p-4 animation-bounce transition duration-600 transform hover:scale-x-105 hover:scale-y-120">
+                                        <li class="shadow-xl bounced-items bg-[radial-gradient(ellipse_at_bottom_right,_var(--tw-gradient-stops))] from-pink-500 via-red-500 to-yellow-500 w-full rounded-xl m-2 p-4 animation-bounce transition duration-600 transform hover:scale-x-105 hover:scale-y-120"
+                                            v-for="music in this.generatedMusicList" :key="music.title">
                                             <div class="flex items-center space-x-4">
                                                 <div class="flex-1 min-w-0">
                                                     <p
                                                         class="text-sm font-medium text-gray-900 truncate dark:text-white text-left">
-                                                        After Dark by Mr.Kitty
+                                                        {{ music.title }}
                                                     </p>
                                                 </div>
-                                                <div
-                                                    class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                                                    View
-                                                </div>
-                                            </div>
-                                        </li>
-
-                                        <li
-                                            class="shadow-xl bg-[radial-gradient(ellipse_at_bottom_right,_var(--tw-gradient-stops))] from-pink-500 via-red-500 to-yellow-500 w-full rounded-lg m-2 p-4 animation-bounce transition duration-600 transform hover:scale-x-105 hover:scale-y-120">
-                                            <div class="flex items-center space-x-4">
-                                                <div class="flex-1 min-w-0">
-                                                    <p
-                                                        class="text-sm font-medium text-gray-900 truncate dark:text-white text-left">
-                                                        After Dark by Mr.Kitty
-                                                    </p>
-                                                </div>
-                                                <div
-                                                    class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                                                    View
-                                                </div>
+                                                <a :href="music.url">
+                                                    <div
+                                                        class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
+                                                        View
+                                                    </div>
+                                                </a>
                                             </div>
                                         </li>
                                     </ul>
@@ -151,124 +157,6 @@
         </div>
     </div>
 
-    <!-- <div
-        class="flex flex-wrap animate-text glass bg-[radial-gradient(ellipse_at_bottom_right,_var(--tw-gradient-stops))] from-blue-600 via-indigo-600 to-red-600 items-center justify-between h-full w-[50] rounded-lg shadow-xl background-animate p-4 mt-6 m-4">
-        <div class=" text-center mt-6 md:text-left w-1/2 h-full" style="min-height:55vh;">
-            <h2 class="text-4xl glow titleText text-center font-bold text-white mb-4 uppercase">Melodyze</h2>
-            <div class="mb-6">
-                <div class="w-full max-w-md p-4 sm:p-8 bg-transparent">
-                    <form @submit.prevent="generateMusic">
-                        <label for="default-input"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">What
-                            type of music are you looking for?</label>
-                        <input type="text" v-model="text"
-                            class="block text-sm p-2 w-full mt-2 font-medium text-green-900 input shadow-lg rounded-md"
-                            id="" placeholder="Type the music stuff here">
-                        <button type="submit"
-                            class="btn rounded-lg  text-md text-white text-bold transition duration-200 transform hover:scale-x-125 hover:scale-y-120 shadow-xl mt-4 p-2 bg-[radial-gradient(ellipse_at_bottom_right,_var(--tw-gradient-stops))] from-green-200 to-green-500">Generate</button>
-                    </form>
-                </div>
-                <div class="w-full max-w-md p-4 sm:p-8 bg-transparent">
-                    <div class="flex items-center justify-between mb-4">
-                        <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white uppercase text-bold">You
-                            can also choose from
-                            different
-                            era!</h5>
-                    </div>
-                    <div class="grid grid-cols-3 gap-4">
-                        <button
-                            class="btn w-full transition duration-300 transform hover:scale-x-125 hover:scale-y-115">
-                            <div
-                                class="shadow-lg bg-[conic-gradient(at_top_left,_var(--tw-gradient-stops))] from-indigo-900 via-red-500 to-amber-600 rounded-md m-2 p-4">
-                                <div class="flex items-center space-x-4">
-                                    <h1 class="text-lg font-lg text-gray-900 font-bold truncate dark:text-white">
-                                        70s
-                                    </h1>
-                                </div>
-                            </div>
-                        </button>
-                        <button
-                            class="btn w-full transition duration-300 transform hover:scale-x-125 hover:scale-y-115">
-                            <div
-                                class="shadow-lg bg-[conic-gradient(at_top_left,_var(--tw-gradient-stops))] from-indigo-900 via-red-500 to-amber-600 rounded-md m-2 p-4">
-                                <div class="flex items-center space-x-4">
-                                    <h1 class="text-lg font-lg text-gray-900 font-bold truncate dark:text-white">
-                                        80s
-                                    </h1>
-                                </div>
-                            </div>
-                        </button>
-                        <button
-                            class="btn w-full transition duration-300 transform hover:scale-x-125 hover:scale-y-115">
-                            <div
-                                class="shadow-lg bg-[conic-gradient(at_top_left,_var(--tw-gradient-stops))] from-indigo-900 via-red-500 to-amber-600 rounded-md m-2 p-4">
-                                <div class="flex items-center space-x-4">
-                                    <h1 class="text-lg font-lg text-gray-900 font-bold truncate dark:text-white">
-                                        90s
-                                    </h1>
-                                </div>
-                            </div>
-                        </button>
-                        <button
-                            class="btn w-full transition duration-300 transform hover:scale-x-125 hover:scale-y-115">
-                            <div
-                                class="shadow-lg bg-[conic-gradient(at_top_left,_var(--tw-gradient-stops))] from-indigo-900 via-red-500 to-amber-600 rounded-md m-2 p-4">
-                                <div class="flex items-center space-x-4">
-                                    <h1 class="text-lg font-lg text-gray-900 font-bold truncate dark:text-white">
-                                        00s
-                                    </h1>
-                                </div>
-                            </div>
-                        </button>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-        <div
-            class="w-1/2 mt-6 backdrop-brightness-110 hover:backdrop-brightness-150 max-h-lg rounded-lg shadow-lg  bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-indigo-600 via-blue-500 to-purple-600 md:w-1/2">
-            <div class="w-full p-4 sm:p-8 bg-transparent">
-                <div class="flex items-center justify-between mb-4">
-                    <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white">Generated Music</h5>
-                </div>
-                <div class="flow-root">
-                    <ul role="list" class=" dark:divide-gray-700">
-                        <li
-                            class="shadow-xl w-full rounded-xl m-2 p-4 animation-bounce transition duration-600 transform hover:scale-x-105 hover:scale-y-120">
-                            <div class="flex items-center space-x-4">
-                                <div class="flex-1 min-w-0">
-                                    <p class="text-sm font-medium text-gray-900 truncate dark:text-white text-left">
-                                        After Dark by Mr.Kitty
-                                    </p>
-                                </div>
-                                <div
-                                    class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                                    View
-                                </div>
-                            </div>
-                        </li>
-
-                        <li
-                            class="shadow-xl w-full rounded-lg m-2 p-4 animation-bounce transition duration-600 transform hover:scale-x-105 hover:scale-y-120">
-                            <div class="flex items-center space-x-4">
-                                <div class="flex-1 min-w-0">
-                                    <p class="text-sm font-medium text-gray-900 truncate dark:text-white text-left">
-                                        After Dark by Mr.Kitty
-                                    </p>
-                                </div>
-                                <div
-                                    class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                                    View
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-        </div>
-    </div> -->
-
 </template>
 
 <script>
@@ -278,36 +166,59 @@ axios.defaults.headers.common['Authorization'] = `Bearer sk-udThl3gwNO3BPaFwm3x9
 axios.defaults.headers.common['mode'] = 'no-cors'
 export default {
     name: 'HomePage',
-    data: () => {
+    data() {
         return {
-            text: ""
+            text: "",
+            isLoading: false,
+            generatedMusicList: [
+            ]
         }
     },
     props: {
     }, methods: {
+        generateLink(songName) {
+            console.log("I receive song name", songName)
+            const encodedQuery = encodeURIComponent(songName);
+            const youtubeUrl = `https://www.youtube.com/results?search_query=${encodedQuery}`;
+            return youtubeUrl
+        },
+        cleanTitle(songTitle) {
+            songTitle = songTitle.slice(2)//..split("").filter(char => char !== " ").join("");.filter(song => /[\d.] /.test(song))
+            var url = this.generateLink(songTitle)
+            this.generatedMusicList.push({ title: songTitle, url: url });
+        },
         async generateMusic() {
-            console.log('i am being called');
-            this.loading = true;
-            const data = {
-                model: "text-davinci-003",
-                prompt: this.text,
-                max_tokens: 7,
-                temperature: 0.9,
-                top_p: 1,
-                n: 1,
-                stream: false,
-                logprobs: null,
-                stop: "\n"
-            }
-            try {
-                const response = await axios
-                    .post('https://api.openai.com/v1/completions', data)
-                if (typeof response != 'undefined') {
-                    console.log(response.data);
+            if (this.text != '') {
+                console.log('i am being called');
+                this.isLoading = true
+                this.loading = true;
+                const data = {
+                    model: "text-davinci-003",
+                    prompt: this.text + " music list, 5 only.",
+                    max_tokens: 755,
+                    temperature: 0.9,
+                    top_p: 1,
+                    n: 1,
+                    stream: false,
+                    logprobs: null,
+                    stop: "###"
                 }
-            } catch (error) {
-                // Handle error
-                console.error(error)
+                try {
+                    const response = await axios
+                        .post('https://api.openai.com/v1/completions', data)
+                    if (typeof response != 'undefined') {
+                        this.generatedMusicList = []
+                        this.isLoading = false
+                        var songList = response.data.choices[0].text.split('\n');
+                        for (let index = 0; index < songList.length; index++) {
+                            if (songList[index] != '') {
+                                this.cleanTitle(songList[index])// this.generatedMusicList.title[index];
+                            }
+                        }
+                    }
+                } catch (error) {
+                    console.error(error)
+                }
             }
         },
     }
