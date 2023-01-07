@@ -14,28 +14,30 @@
                     <div class="lg:w-1/2 sm:w-full">
                         <div class="mb-6 p-4">
                             <div class="w-full max-w-md p-4 sm:p-8 bg-transparent">
-                                <form @submit.prevent="generateMusic">
+                                <form @submit.prevent="generateMusic(null)">
                                     <label for="default-input"
                                         class="block mb-2 text-sm font-medium text-left text-gray-900 dark:text-white"
-                                        style="font-family:'Poppins', sans-serif;">What
+                                        style="font-family:'Poppins', sans-serif">What
                                         type of music are you looking for?</label>
                                     <input type="text" v-model="text"
                                         class="block text-sm p-2 w-full mt-2 font-medium text-green-900 input shadow-lg rounded-md"
                                         id="" placeholder="Type the music stuff here">
                                     <div v-if="isLoading">
-
-                                        <button type="button" disabled hidden
-                                            class="inline-flex w-auto cursor-pointer select-none appearance-none items-center justify-center space-x-2 rounded rounded-lg text-left text-md text-black p-2 text-bold shadow-lg mt-3 text-bold w-full text-center  bg-white transition bg-white disabled:pointer-events-none">
-                                            <svg class="h-4 w-4 animate-spin" viewBox="3 3 18 18">
-                                                <path class="fill-pink-900"
-                                                    d="M12 5C8.13401 5 5 8.13401 5 12C5 15.866 8.13401 19 12 19C15.866 19 19 15.866 19 12C19 8.13401 15.866 5 12 5ZM3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12Z">
-                                                </path>
-                                                <path class="fill-white"
-                                                    d="M16.9497 7.05015C14.2161 4.31648 9.78392 4.31648 7.05025 7.05015C6.65973 7.44067 6.02656 7.44067 5.63604 7.05015C5.24551 6.65962 5.24551 6.02646 5.63604 5.63593C9.15076 2.12121 14.8492 2.12121 18.364 5.63593C18.7545 6.02646 18.7545 6.65962 18.364 7.05015C17.9734 7.44067 17.3403 7.44067 16.9497 7.05015Z">
-                                                </path>
-                                            </svg>
-                                            <span>Loading...</span>
-                                        </button>
+                                        <div class="container">
+                                            <button type="button" disabled hidden
+                                                class="inline-flex cursor-pointer select-none appearance-none rounded-lg text-left text-md text-black p-2 text-bold shadow-lg mt-3 text-bold w-full text-center justify-center bg-white transition bg-white disabled:pointer-events-none"
+                                                style="padding:10px">
+                                                <svg class="h-4 w-4 animate-spin" viewBox="3 3 18 18">
+                                                    <path class="fill-pink-900"
+                                                        d="M12 5C8.13401 5 5 8.13401 5 12C5 15.866 8.13401 19 12 19C15.866 19 19 15.866 19 12C19 8.13401 15.866 5 12 5ZM3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12Z">
+                                                    </path>
+                                                    <path class="fill-white"
+                                                        d="M16.9497 7.05015C14.2161 4.31648 9.78392 4.31648 7.05025 7.05015C6.65973 7.44067 6.02656 7.44067 5.63604 7.05015C5.24551 6.65962 5.24551 6.02646 5.63604 5.63593C9.15076 2.12121 14.8492 2.12121 18.364 5.63593C18.7545 6.02646 18.7545 6.65962 18.364 7.05015C17.9734 7.44067 17.3403 7.44067 16.9497 7.05015Z">
+                                                    </path>
+                                                </svg>
+                                                <span></span>
+                                            </button>
+                                        </div>
                                     </div>
                                     <div v-else>
                                         <div class="container">
@@ -51,11 +53,13 @@
                                         class="text-xl font-bold leading-none text-gray-900 dark:text-white text-light text-center">
                                         Frequent Choices</h5>
                                 </div>
-                                <div class="grid gap-4 lg:grid-cols-4 sm:grid-cols-2">
+                                <div class="grid gap-4 lg:grid-cols-4 sm:grid-cols-2"
+                                    v-bind:class="{ 'animate-pulse': isEraLoading }">
 
                                     <div>
                                         <button
-                                            class="btn w-full transition duration-300 transform hover:scale-x-125 hover:scale-y-115">
+                                            class="btn w-full transition duration-300 transform hover:scale-x-125 hover:scale-y-115"
+                                            @click="generateMusic('70s')" v-bind:disabled="isDisabled">
                                             <div
                                                 class="shadow-lg bg-[conic-gradient(at_top_left,_var(--tw-gradient-stops))] from-indigo-900 via-red-500 to-amber-600 rounded-md m-2 p-4">
                                                 <div class="flex items-center space-x-4">
@@ -69,7 +73,8 @@
                                     </div>
                                     <div>
                                         <button
-                                            class="btn w-full transition duration-300 transform hover:scale-x-125 hover:scale-y-115">
+                                            class="btn w-full transition duration-300 transform hover:scale-x-125 hover:scale-y-115"
+                                            @click="generateMusic('80s')" v-bind:disabled="isDisabled">
                                             <div
                                                 class="shadow-lg bg-[conic-gradient(at_top_left,_var(--tw-gradient-stops))] from-indigo-900 via-red-500 to-amber-600 rounded-md m-2 p-4">
                                                 <div class="flex items-center space-x-4">
@@ -83,7 +88,8 @@
                                     </div>
                                     <div>
                                         <button
-                                            class="btn w-full transition duration-300 transform hover:scale-x-125 hover:scale-y-115">
+                                            class="btn w-full transition duration-300 transform hover:scale-x-125 hover:scale-y-115"
+                                            @click="generateMusic('90s')" v-bind:disabled="isDisabled">
                                             <div
                                                 class="shadow-lg bg-[conic-gradient(at_top_left,_var(--tw-gradient-stops))] from-indigo-900 via-red-500 to-amber-600 rounded-md m-2 p-4">
                                                 <div class="flex items-center space-x-4">
@@ -97,7 +103,8 @@
                                     </div>
                                     <div>
                                         <button
-                                            class="btn w-full transition duration-300 transform hover:scale-x-125 hover:scale-y-115">
+                                            class="btn w-full transition duration-300 transform hover:scale-x-125 hover:scale-y-115"
+                                            @click="generateMusic('00s')" v-bind:disabled="isDisabled">
                                             <div
                                                 class="shadow-lg bg-[conic-gradient(at_top_left,_var(--tw-gradient-stops))] from-indigo-900 via-red-500 to-amber-600 rounded-md m-2 p-4">
                                                 <div class="flex items-center space-x-4">
@@ -161,16 +168,29 @@
 <script>
 // import axios
 import axios from 'axios';
+import Swal from 'sweetalert2';
 export default {
     name: 'HomePage',
     data() {
         return {
             text: "",
+            apiCallCount: localStorage.getItem('apiCallCount'),
             isLoading: false,
+            isDisabled: false,
+            isEraLoading: false,
             generatedMusicList: [
             ]
         }
     },
+    mounted() {
+        if (localStorage.getItem('hash') == null) {
+            const hash = Math.random().toString(36).substring(2);
+            localStorage.setItem('hash', hash)
+            localStorage.setItem('apiCallCount', 0)
+            Swal.fire('Hello! You are only allowed to generate upto 5 times a day.');
+        }
+    }
+    ,
     props: {
         apiKey: {
             type: String
@@ -183,41 +203,71 @@ export default {
             return youtubeUrl
         },
         cleanTitle(songTitle) {
-            songTitle = songTitle.slice(2)//..split("").filter(char => char !== " ").join("");.filter(song => /[\d.] /.test(song))
-            var url = this.generateLink(songTitle)
-            this.generatedMusicList.push({ title: songTitle, url: url });
+            songTitle = songTitle.replace(/^\s+|\s+$/g, '').slice(2); //removes empty spaces, and numbers from the song title.
+            var url = this.generateLink(songTitle) //returns url for youtube
+            this.generatedMusicList.push({ title: songTitle, url: url }); //appends the music with url into the list
         },
-        async generateMusic() {
-            if (this.text != '') {
-                axios.defaults.headers.common['Authorization'] = `Bearer ${process.env.VUE_APP_API_KEY}`;
-                this.isLoading = true
-                this.loading = true;
-                const data = {
-                    model: "text-davinci-003",
-                    prompt: this.text + " music list, 5 only.",
-                    max_tokens: 755,
-                    temperature: 0.9,
-                    top_p: 1,
-                    n: 1,
-                    stream: false,
-                    logprobs: null,
-                    stop: "###"
-                }
-                try {
-                    const response = await axios
-                        .post('https://api.openai.com/v1/completions', data)
-                    if (typeof response != 'undefined') {
-                        this.generatedMusicList = []
-                        this.isLoading = false
-                        var songList = response.data.choices[0].text.split('\n');
-                        for (let index = 0; index < songList.length; index++) {
-                            if (songList[index] != '') {
-                                this.cleanTitle(songList[index])// this.generatedMusicList.title[index];
-                            }
+        async generateMusic(era) {
+            if (this.text != '' || era != null) {
+                if (localStorage.getItem('hash') != "" && localStorage.getItem('apiCallCount') <= 5) {
+                    axios.defaults.headers.common['Authorization'] = `Bearer ${process.env.VUE_APP_API_KEY}`;
+                    var data
+                    if (era == null) {
+                        this.isLoading = true
+                        this.loading = true;
+                        data = {
+                            model: "text-davinci-003",
+                            prompt: this.text + " music list, 5 only.",
+                            max_tokens: 755,
+                            temperature: 0.9,
+                            top_p: 1,
+                            n: 1,
+                            stream: false,
+                            logprobs: null,
+                            stop: "###"
+                        }
+                    } else {
+                        this.isDisabled = true
+
+                        this.isEraLoading = true
+                        data = {
+                            model: "text-davinci-003",
+                            prompt: "best of " + era + " music list, 5 only.",
+                            max_tokens: 755,
+                            temperature: 0.9,
+                            top_p: 1,
+                            n: 1,
+                            stream: false,
+                            logprobs: null,
+                            stop: "###"
                         }
                     }
-                } catch (error) {
-                    console.error(error)
+                    try {
+                        const response = await axios
+                            .post('https://api.openai.com/v1/completions', data)
+                        if (typeof response != 'undefined') {
+                            //incrementing api call count
+                            this.apiCallCount++;
+                            localStorage.setItem('apiCallCount', this.apiCallCount);
+                            //resetting the list
+                            this.generatedMusicList = []
+                            //stopping all the loaders
+                            this.isLoading = false
+                            this.isEraLoading = false
+                            this.isDisabled = false
+                            //splitting the array on the basis of newline character
+                            var songList = response.data.choices[0].text.split('\n');
+                            for (let index = 0; index < songList.length; index++) {
+                                if (songList[index] != '') {
+                                    this.cleanTitle(songList[index])// this.generatedMusicList.title[index];
+                                }
+                            }
+                        }
+                    } catch (error) {
+                        console.error(error)
+                    }
+                } else {
+                    Swal.fire('Your daily limit has been reached!');
                 }
             }
         },
