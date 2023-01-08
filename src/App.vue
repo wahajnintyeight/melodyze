@@ -1,4 +1,6 @@
 <template>
+
+
   <div class="">
 
     <nav class="px-2 bg-transparent border-gray-200">
@@ -8,7 +10,7 @@
             style="letter-spacing: 1.5px; font-family: 'Poppins', sans-serif;">Melodyze.
           </h2>
         </a>
-        <button data-collapse-toggle="navbar-multi-level" type="button"
+        <button data-collapse-toggle="navbar-multi-level" style="display: none;" type="button" hidden
           class="inline-flex items-center p-2 ml-3 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
           aria-controls="navbar-multi-level" aria-expanded="false">
           <span class="sr-only">Open main menu</span>
@@ -23,14 +25,15 @@
           <ul
             class="flex flex-col p-4 mt-4 rounded-lg md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium bg-transparent">
             <li>
-              <a href="#"
+              <a href="#" hidden style="display: none;"
                 class="block py-2 pl-3 pr-4 text-white bg-blue-700 uppercase rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-white dark:bg-blue-600 md:dark:bg-transparent"
                 aria-current="page">Home</a>
             </li>
             <li>
-              <a href="#"
+              <a href="#" hidden style="display: none;"
                 class="block py-2 pl-3 uppercase pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-white dark:bg-blue-600 md:dark:bg-transparent"
-                aria-current="page">About</a>
+                aria-current="page"><i class="fas fa-code-compare"></i> About</a>
+
             </li>
 
           </ul>
@@ -43,6 +46,7 @@
 </template>
 
 <script>
+
 // import HelloWorld from './components/HelloWorld.vue'
 import HomePage from './components/Home.vue';
 export default {

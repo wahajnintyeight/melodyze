@@ -42,7 +42,11 @@
                                     <div v-else>
                                         <div class="container">
                                             <button type="submit"
-                                                class="btn rounded-lg text-left text-md text-black p-2 text-bold shadow-lg mt-3 text-bold w-full text-center  bg-white">Generate</button>
+                                                class="btn rounded-lg text-left text-md text-black p-2 text-bold shadow-lg mt-3 text-bold w-full text-center  bg-white">Generate
+                                                (<span class="text-bold">{{
+                                                    5 -
+                                                        this.apiCallCount
+                                                }} left )</span></button>
                                         </div>
                                     </div>
                                 </form>
@@ -138,7 +142,7 @@
                                     <ul role="list" class=" dark:divide-gray-700">
                                         <li class="shadow-xl bounced-items bg-[radial-gradient(ellipse_at_bottom_right,_var(--tw-gradient-stops))] from-pink-500 via-red-500 to-yellow-500 w-full rounded-xl m-2 p-4 animation-bounce transition duration-600 transform hover:scale-x-105 hover:scale-y-120"
                                             v-for="music in this.generatedMusicList" :key="music.title">
-                                            <div class="flex items-center space-x-4">
+                                            <div class="items-left space-x-4">
                                                 <a :href="music.url" target="_blank" rel="noopener noreferrer">
                                                     <div class="flex-1 min-w-0">
                                                         <p
@@ -179,14 +183,51 @@ export default {
             isDisabled: false,
             isEraLoading: false,
             generatedMusicList: [
+            ],
+            blackList: [
+                " ",
+                "!",
+                "@",
+                "#",
+                "$",
+                "%",
+                "^",
+                "&",
+                "*",
+                "(",
+                ")",
+                "-",
+                "_",
+                "=",
+                "+",
+                "[",
+                "{",
+                "]",
+                "}",
+                "|",
+                ";",
+                ":",
+                "'",
+                ",",
+                "<",
+                ".",
+                ">",
+                "/",
+                "?",
+                "~",
+                "`"
             ]
         }
     },
     mounted() {
-        if (localStorage.getItem('hash') == null) {
+        //if trying to use the site for the first time, or the 24 hours have passed then generating new hash
+        if (localStorage.getItem('hash') == null || Date.now() > localStorage.getItem('expiration')) {
             const hash = Math.random().toString(36).substring(2);
+            const currentTime = Date.now()
+            const futureTime = currentTime + 86400000 //adding 24 hours to the current time, to generate expiry time.
             localStorage.setItem('hash', hash)
             localStorage.setItem('apiCallCount', 0)
+            localStorage.setItem('expiration', futureTime)
             Swal.fire('Hello! You are only allowed to generate upto 5 times a day.');
         }
     }
@@ -210,6 +251,9 @@ export default {
         async generateMusic(era) {
             if (this.text != '' || era != null) {
                 if (localStorage.getItem('hash') != "" && localStorage.getItem('apiCallCount') <= 5) {
+                    // if (this.text){
+
+                    // }
                     axios.defaults.headers.common['Authorization'] = `Bearer ${process.env.VUE_APP_API_KEY}`;
                     var data
                     if (era == null) {
